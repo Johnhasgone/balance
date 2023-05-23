@@ -1,6 +1,6 @@
 CREATE TABLE account
 (
-    id           BIGINT PRIMARY KEY AUTO_INCREMENT,
+    id           BIGSERIAL PRIMARY KEY,
     amount       NUMERIC(18, 2) NOT NULL,
     last_updated TIMESTAMP      NOT NULL
 );

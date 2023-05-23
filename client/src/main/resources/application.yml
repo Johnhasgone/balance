@@ -1,0 +1,6 @@
+server:
+  port: 8082
+client:
+  thread-count: 5
+  read-quota: 50
+  write-quota: 50
