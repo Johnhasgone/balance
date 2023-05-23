@@ -31,7 +31,7 @@ public class BalanceRequestCounter {
         long changeCount = changeBalanceCount.get();
         long requestCount = getCount + changeCount;
 
-        log.info("get - {}, change - {}, rps - {}", getCount, changeCount, requestCount - prevRequestCount);
+        log.info("read - {}, write - {}, rps - {}", getCount, changeCount, requestCount - prevRequestCount);
 
         prevRequestCount = requestCount;
     }

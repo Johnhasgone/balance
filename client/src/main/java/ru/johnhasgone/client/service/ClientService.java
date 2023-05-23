@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
+import java.util.stream.LongStream;
 
 @Service
 public class ClientService {
@@ -22,9 +22,15 @@ public class ClientService {
     private int readQuota;
     @Value("${client.write-quota}")
     private int writeQuota;
+    @Value("${client.id-to-index}")
+    private int toIndex;
 
-    private final List<Long> readIdList = List.of(1L);
-    private final List<Long> writeIdList = List.of(1L);
+    private final List<Long> readIdList = LongStream.range(1L, 101L)
+            .boxed()
+            .toList();
+    private final List<Long> writeIdList = LongStream.range(1L, 101L)
+            .boxed()
+            .toList();
 
     private final WebClient webClient = WebClient.builder()
             .baseUrl("http://localhost:8080")
@@ -40,15 +46,13 @@ public class ClientService {
                     double readProbability = (double) readQuota / (double) (readQuota + writeQuota);
 
                     if (ThreadLocalRandom.current().nextDouble() < readProbability) {
-                        getBalance(randomFromList(readIdList));
+                        getBalance(randomFromList(readIdList, toIndex));
                     } else {
-                        BigDecimal delta = BigDecimal.valueOf(ThreadLocalRandom.current().nextInt(1, 101));
-                        changeBalance(randomFromList(writeIdList), BigDecimal.TEN);
+                        changeBalance(randomFromList(writeIdList, toIndex), BigDecimal.ONE);
                     }
                 }
             });
         }
-        threadPool.awaitTermination(10000, TimeUnit.SECONDS);
     }
 
     public void getBalance(Long id) {
@@ -74,7 +78,7 @@ public class ClientService {
 
     }
 
-    private Long randomFromList(List<Long> list) {
-        return list.get(ThreadLocalRandom.current().nextInt(list.size()));
+    private Long randomFromList(List<Long> list, int toIndex) {
+        return list.get(ThreadLocalRandom.current().nextInt(Math.min(list.size(), toIndex)));
     }
 }

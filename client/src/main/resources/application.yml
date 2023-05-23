@@ -1,6 +1,9 @@
 server:
   port: 8082
 client:
-  thread-count: 5
-  read-quota: 50
-  write-quota: 50
+  thread-count: 10
+  read-quota: 0
+  write-quota: 100
+  id-to-index: 1 # client gets random account ids from lists containing all the existing ids;
+                  # this param helps to adjust this randomness and take ids from the sublist
+                  # with 'id-to-index' length

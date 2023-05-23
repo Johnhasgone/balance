@@ -1,4 +1,4 @@
-CREATE TABLE account
+CREATE TABLE IF NOT EXISTS account
 (
     id           BIGSERIAL PRIMARY KEY,
     amount       NUMERIC(18, 2) NOT NULL,
@@ -6,5 +6,5 @@ CREATE TABLE account
 );
 
 INSERT INTO account (amount, last_updated)
-SELECT (id * 10), current_timestamp
-FROM generate_series(1, 10000) AS id;
+SELECT 0, current_timestamp
+FROM generate_series(1, 100) AS id;
