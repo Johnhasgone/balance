@@ -11,10 +11,10 @@
     <groupId>ru.johnhasgone</groupId>
     <artifactId>balance</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>account</name>
-    <description>account</description>
+    <name>balance</name>
+    <description>account balance</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>

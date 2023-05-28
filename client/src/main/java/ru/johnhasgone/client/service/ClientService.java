@@ -33,7 +33,7 @@ public class ClientService {
             .toList();
 
     private final WebClient webClient = WebClient.builder()
-            .baseUrl("http://localhost:8080")
+            .baseUrl("http://balance:8080")
             .build();
 
     @EventListener(ApplicationReadyEvent.class)
