@@ -5,7 +5,11 @@ Balance and Client apps could be started in IDEA after starting database, or usi
 
 
 Client's application.yml contains params for changing tests:
+
   thread-count - to choose count of threads used to send requests to balance app
+  
   read-quota - number to set the weight of read requests in all sending requests
+  
   write-quota - number to set the weight of write requests (changing balance) in all sending requests
+  
   id-to-index - client uses list of all account ids to send requests, one can choose using only the part of the list up to the index
