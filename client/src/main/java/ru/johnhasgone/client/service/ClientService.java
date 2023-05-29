@@ -5,8 +5,10 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.util.retry.Retry;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -62,6 +64,7 @@ public class ClientService {
                         .build(id)
                 ).retrieve()
                 .bodyToMono(BigDecimal.class)
+                .retryWhen(Retry.fixedDelay(20, Duration.ofSeconds(5)))
                 .block();
     }
 
@@ -74,6 +77,7 @@ public class ClientService {
                 ).bodyValue(delta)
                 .retrieve()
                 .toBodilessEntity()
+                .retryWhen(Retry.fixedDelay(20, Duration.ofSeconds(5)))
                 .block();
 
     }
