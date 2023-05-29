@@ -1,7 +1,10 @@
 # balance
-Application for account balance changing and reading. Uses pessimistic lock for updating balance, cache for reading balance, and its evicting when balance has changed.
-Contains balance app itself, client app for testing balance app (runs requests to the app in infinite loop, contains parameters to change testing requests count)).
+Spring Boot application for account balance changing and reading. Uses pessimistic lock for updating balance in database, cache for reading balance, and its evicting when balance has changed. App can work with parrallel requests, and always return actual account balance.
+
+Contains balance app itself, client app for testing balance app (runs requests to the app in infinite loop, contains parameters to change testing requests count).
 Balance and Client apps could be started in IDEA after starting database, or using enclosed docker-compose file
+
+
 
 
 Client's application.yml contains params for changing tests:
