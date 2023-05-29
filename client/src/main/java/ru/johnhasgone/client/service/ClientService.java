@@ -1,5 +1,6 @@
 package ru.johnhasgone.client.service;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -26,6 +27,8 @@ public class ClientService {
     private int writeQuota;
     @Value("${client.id-to-index}")
     private int toIndex;
+    @Value("${balance.url}")
+    private String balanceUrl;
 
     private final List<Long> readIdList = LongStream.range(1L, 101L)
             .boxed()
@@ -33,10 +36,14 @@ public class ClientService {
     private final List<Long> writeIdList = LongStream.range(1L, 101L)
             .boxed()
             .toList();
+    private WebClient webClient;
 
-    private final WebClient webClient = WebClient.builder()
-            .baseUrl("http://balance:8080")
-            .build();
+    @PostConstruct
+    public void initializeWebClient() {
+        webClient = WebClient.builder()
+                .baseUrl(balanceUrl)
+                .build();
+    }
 
     @EventListener(ApplicationReadyEvent.class)
     public void sendRequest() throws InterruptedException {

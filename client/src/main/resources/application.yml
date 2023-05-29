@@ -1,5 +1,7 @@
 server:
   port: 8082
+balance:
+  url: ${BALANCE_URL:http://localhost:8080}
 client:
   thread-count: 10
   read-quota: 100

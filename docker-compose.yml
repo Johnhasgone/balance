@@ -32,5 +32,7 @@ services:
     restart: always
     depends_on:
       - balance
+    environment:
+      - BALANCE_URL=http://balance:8080
     ports:
       - "8082:8082"
